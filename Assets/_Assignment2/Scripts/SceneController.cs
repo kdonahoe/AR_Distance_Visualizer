@@ -3,7 +3,6 @@ using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 using UnityEngine;
 
-
 [RequireComponent(typeof(ARRaycastManager))]
 public class SceneController : MonoBehaviour
 {
@@ -92,7 +91,7 @@ public class SceneController : MonoBehaviour
         }
 
         //checks touch input; adds new cube if touched
-        //runs every 5th time Update is called, to not "spam" the screen with cubes
+        //runs every 6th time Update is called, to not "spam" the screen with cubes
         if (frameCount % 6 == 0)
         {
             //This getTouchPosition and raycast code was modified from the ARFoundations code

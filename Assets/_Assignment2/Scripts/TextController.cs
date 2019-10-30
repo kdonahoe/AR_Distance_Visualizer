@@ -6,7 +6,9 @@ public class TextController : MonoBehaviour
 {
     GameObject camera;
     GameObject resetButton;
+    bool reset;
 
+    Vector3 offset = new Vector3(0, 180, 0);
     // Start is called before the first frame update
     void Start()
     {
@@ -18,9 +20,11 @@ public class TextController : MonoBehaviour
     void Update()
     {
         transform.LookAt(camera.transform);
-        transform.Rotate(new Vector3(0, 180, 0));
+        transform.Rotate(offset);
 
-        if (resetButton.GetComponent<resetScene>().resetCube)
+        reset = resetButton.GetComponent<resetScene>().resetCube;
+
+        if (reset)
         {
             Destroy(transform.gameObject);
         }

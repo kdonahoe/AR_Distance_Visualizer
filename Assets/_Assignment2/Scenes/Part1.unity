@@ -363,8 +363,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 80, y: -950}
-  m_SizeDelta: {x: 70, y: 40}
+  m_AnchoredPosition: {x: 100, y: -950}
+  m_SizeDelta: {x: 70, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &579677823
 MonoBehaviour:
@@ -597,7 +597,8 @@ MonoBehaviour:
   cubes: []
   lines: []
   placedCube: {fileID: 1934569588295450, guid: b34b6c8f1206a6844b983e23b9da0441, type: 3}
-  distanceVisualizer: {fileID: 0}
+  distanceVisualizer: {fileID: 267768563418377727, guid: 43edfbbc98d576846b17867c3c08963d,
+    type: 3}
 --- !u!1 &964630937
 GameObject:
   m_ObjectHideFlags: 0
@@ -726,8 +727,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 380, y: -950}
-  m_SizeDelta: {x: 70, y: 40}
+  m_AnchoredPosition: {x: 400, y: -950}
+  m_SizeDelta: {x: 70, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1075942258
 MonoBehaviour:
