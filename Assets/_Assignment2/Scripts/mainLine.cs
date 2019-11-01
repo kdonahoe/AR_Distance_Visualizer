@@ -26,8 +26,10 @@ public class mainLine : MonoBehaviour
         currentCube = origin.GetComponent<SceneController2>().currentCube;
 
         lineRenderer = GetComponent<LineRenderer>();
-        lineRenderer.startWidth = 0.04F;
-        lineRenderer.endWidth = 0.04F;
+        lineRenderer.material.SetColor("_Color", Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f));
+
+        lineRenderer.startWidth = 0.006F;
+        lineRenderer.endWidth = 0.006F;
         lineRenderer.positionCount = 50;
     }
 

@@ -15,11 +15,10 @@ public class LineController : MonoBehaviour
     
     List<GameObject> cubes;
 
-    GameObject resetButton;
-    bool reset;
 
     Vector3 p0;
     Vector3 p1;
+
     Vector3 newp0;
     Vector3 newp1;
 
@@ -32,7 +31,6 @@ public class LineController : MonoBehaviour
     void Start()
     {
         session = GameObject.Find("AR Session Origin");
-
         Scene currentScene = SceneManager.GetActiveScene();
 
         //gets the right cube list depending on the scene (different scenes have different scripts)
@@ -48,8 +46,8 @@ public class LineController : MonoBehaviour
 
         lineRenderer = GetComponent<LineRenderer>();
 
-        lineRenderer.startWidth = 0.015f;
-        lineRenderer.endWidth = 0.015f;
+        lineRenderer.startWidth = 0.01f;
+        lineRenderer.endWidth = 0.01f;
 
         p0 = cubes[cubes.Count - 2].transform.position;
         p1 = cubes[cubes.Count - 1].transform.position;

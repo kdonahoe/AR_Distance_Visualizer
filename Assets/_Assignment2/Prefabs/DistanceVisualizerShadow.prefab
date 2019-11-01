@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3601434451325917930
+--- !u!1 &267768563418377727
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,37 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3601434451325917935}
-  - component: {fileID: 3601434451325917932}
-  - component: {fileID: 3601434451325917933}
+  - component: {fileID: 5141493315265073561}
+  - component: {fileID: 6203063743989814516}
+  - component: {fileID: -4754673348610743024}
+  - component: {fileID: 5513336789974041419}
   m_Layer: 0
-  m_Name: Line
+  m_Name: DistanceVisualizerShadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3601434451325917935
+--- !u!4 &5141493315265073561
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3601434451325917930}
+  m_GameObject: {fileID: 267768563418377727}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1139.8188, y: 1002.319, z: -88.389755}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!120 &3601434451325917932
+--- !u!120 &6203063743989814516
 LineRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3601434451325917930}
+  m_GameObject: {fileID: 267768563418377727}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -49,7 +50,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b0a46feb4b70f43f88f599f902d3a3a6, type: 2}
+  - {fileID: 2100000, guid: 9746dcb3278da420389ba0184f139ad8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -75,7 +76,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 1
+    widthMultiplier: 0.1
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -93,18 +94,18 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
-      key2: {r: 1, g: 1, b: 1, a: 0}
-      key3: {r: 0, g: 0, b: 0, a: 0}
+      key0: {r: 0.05660379, g: 0.05660379, b: 0.05660379, a: 1}
+      key1: {r: 0.05660379, g: 0.05660379, b: 0.05660379, a: 1}
+      key2: {r: 0.45882356, g: 0, b: 0.54901963, a: 0}
+      key3: {r: 0.45882356, g: 0, b: 0.54901963, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
-      ctime0: 19468
+      ctime0: 7132
       ctime1: 65535
       ctime2: 65535
-      ctime3: 0
+      ctime3: 53970
       ctime4: 0
       ctime5: 0
       ctime6: 0
@@ -126,17 +127,32 @@ LineRenderer:
     textureMode: 0
     shadowBias: 0.5
     generateLightingData: 0
-  m_UseWorldSpace: 1
-  m_Loop: 0
---- !u!114 &3601434451325917933
+  m_UseWorldSpace: 0
+  m_Loop: 1
+--- !u!114 &-4754673348610743024
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3601434451325917930}
+  m_GameObject: {fileID: 267768563418377727}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce41f98347681ef49b06fecca21baeed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distanceTextPrefab: {fileID: 652641579428461895, guid: 7016e81875555974fa36cc415c33c11f,
+    type: 3}
+  distanceText: {fileID: 0}
+--- !u!114 &5513336789974041419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 267768563418377727}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f2cbf301f784cb41ab8be0938beab55, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b1eb60934533a64fa9f87f2708ca1d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
