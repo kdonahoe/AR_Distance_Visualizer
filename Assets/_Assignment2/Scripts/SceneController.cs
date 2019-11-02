@@ -26,8 +26,8 @@ public class SceneController : MonoBehaviour
     public GameObject distanceVisualizer;
 
     //buttons
-    private GameObject resetButton;
-    private GameObject undoButton;
+    GameObject resetButton;
+    GameObject undoButton;
 
     //keeps track on whether button was pressed
     bool reset;
@@ -36,6 +36,7 @@ public class SceneController : MonoBehaviour
     //used to manage and regulate touch input
     int frameCount = 0;
 
+    bool touchedLast= false;
     // Start is called before the first frame update
     void Start()
     {
@@ -51,14 +52,14 @@ public class SceneController : MonoBehaviour
         cubeCount = cubes.Count;
         lineCount = lines.Count;
 
-        //checks
-        reset = resetButton.GetComponent<resetScene>().resetCube;
-        undo = undoButton.GetComponent<UndoCube>().undo;
+        //checks buttons
+        reset = resetButton.GetComponent<buttonController>().resetCube;
+        undo = undoButton.GetComponent<buttonController>().undo;
 
         //if reset, destroys all cubes and lines
         if (reset)
         {
-            resetButton.GetComponent<resetScene>().setResetFalse();
+            resetButton.GetComponent<buttonController>().setResetFalse();
 
             for (int i = 0; i < cubeCount; i++)
             {
@@ -77,7 +78,7 @@ public class SceneController : MonoBehaviour
         //if undo, destroys most recent cube and associated line
         if (undo)
         {
-            undoButton.GetComponent<UndoCube>().setUndoFalse();
+            undoButton.GetComponent<buttonController>().setUndoFalse();
 
             if (cubeCount > 0)
             {
@@ -92,8 +93,6 @@ public class SceneController : MonoBehaviour
 
         //checks touch input; adds new cube if touched
         //runs every 6th time Update is called, to not "spam" the screen with cubes
-        if (frameCount % 6 == 0)
-        {
             //This getTouchPosition and raycast code was modified from the ARFoundations code
             if (!getTouchPosition(out Vector2 pos))
             {
@@ -102,20 +101,40 @@ public class SceneController : MonoBehaviour
 
             if (raycastManager.Raycast(pos, hits, TrackableType.PlaneWithinPolygon))
             {
-                var hitPose = hits[0].pose;
-                currentCube = Instantiate(placedCube, hitPose.position, hitPose.rotation);
-                cubes.Add(currentCube);
-                cubeCount = cubes.Count;
-                lineCount = lines.Count;
-                if (cubeCount >= 2)
+                if(touchedLast == true)
                 {
-                    currentLine = Instantiate(distanceVisualizer);
-                    lines.Add(currentLine);
+                    frameCount++;
+                    
+                    if(frameCount % 5 == 0)
+                    {
+                        touchedLast = false;
+                    }
+                    
                 }
+                if(touchedLast == false)
+                {
+                    var hitPose = hits[0].pose;
+                    currentCube = Instantiate(placedCube, hitPose.position, hitPose.rotation);
+
+                    var cubeRenderer = currentCube.GetComponent<Renderer>();
+                    cubeRenderer.material.SetColor("_Color", Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f));
+
+                    cubes.Add(currentCube);
+
+                    cubeCount = cubes.Count;
+                    lineCount = lines.Count;
+
+                    if (cubeCount >= 2)
+                    {
+                        currentLine = Instantiate(distanceVisualizer);
+                        lines.Add(currentLine);
+                    }
+
+                touchedLast = true;
+                }
+                
             }
-        }
         
-        frameCount ++;
     }
 
 

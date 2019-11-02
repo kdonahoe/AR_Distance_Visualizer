@@ -4,29 +4,17 @@ using UnityEngine;
 
 public class TextController : MonoBehaviour
 {
-    GameObject camera;
-    GameObject resetButton;
-    bool reset;
-
-    Vector3 offset = new Vector3(0, 180, 0);
-    // Start is called before the first frame update
-    void Start()
-    {
-        camera = GameObject.Find("AR Camera");
-        resetButton = GameObject.Find("ResetButton");
-    }
-
     // Update is called once per frame
     void Update()
     {
-        transform.LookAt(camera.transform);
-        transform.Rotate(offset);
+        transform.LookAt(GameObject.Find("AR Camera").transform);
+        transform.Rotate(new Vector3(0, 180, 0)); //rotate bc its backwards otherwise
 
-        reset = resetButton.GetComponent<resetScene>().resetCube;
-
-        if (reset)
+        if (GameObject.Find("ResetButton").GetComponent<buttonController>().resetCube)
         {
             Destroy(transform.gameObject);
         }
+
+
     }
 }

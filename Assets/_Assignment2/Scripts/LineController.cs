@@ -8,7 +8,7 @@ public class LineController : MonoBehaviour
 {
     LineRenderer lineRenderer;
 
-    private GameObject session;
+    GameObject session;
 
     public GameObject distanceTextPrefab;
     public GameObject distanceText;
@@ -22,12 +22,12 @@ public class LineController : MonoBehaviour
     Vector3 newp0;
     Vector3 newp1;
 
+    Vector3 lineCenter;
+
     bool textAdded = false;
 
-    private float counter = 0;
-    private float distance;
+    float distance;
 
-    // Start is called before the first frame update
     void Start()
     {
         session = GameObject.Find("AR Session Origin");
@@ -42,7 +42,6 @@ public class LineController : MonoBehaviour
         {
             cubes = session.GetComponent<SceneController2>().cubes;
         }
-        
 
         lineRenderer = GetComponent<LineRenderer>();
 
@@ -51,6 +50,9 @@ public class LineController : MonoBehaviour
 
         p0 = cubes[cubes.Count - 2].transform.position;
         p1 = cubes[cubes.Count - 1].transform.position;
+
+        distance = Vector3.Distance(p0, p1);
+        lineCenter = (p0 + p1) / 2;
 
         lineRenderer.SetPosition(0, p0);
         lineRenderer.SetPosition(1, p0);
@@ -63,16 +65,11 @@ public class LineController : MonoBehaviour
         newp1 = Vector3.Lerp(newp0, p1, 6.0f * Time.deltaTime);
         lineRenderer.SetPosition(1, newp1);
 
-        if (lineRenderer.GetPosition(1) == p1)
+        if (lineRenderer.GetPosition(1) == p1 && !textAdded)
         {
-            if (!textAdded)
-            {
-                distanceTextPrefab.GetComponent<TextMesh>().text = Vector3.Distance(p0, p1).ToString("0.00");
-                distanceText = Instantiate(distanceTextPrefab, ((p0 + p1) / 2) + new Vector3(0, 0.02f, 0), Quaternion.identity);
+                distanceTextPrefab.GetComponent<TextMesh>().text = distance.ToString("0.00");
+                distanceText = Instantiate(distanceTextPrefab, lineCenter + new Vector3(0, 0.02f, 0), Quaternion.identity);
                 textAdded = true;
-            }
         }
-        
-
     }
 }

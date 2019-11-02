@@ -160,10 +160,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 38828294}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dce4068efc084c040b1b6c65c374f63e, type: 3}
+  m_Script: {fileID: 11500000, guid: f954c772dfaa9ec4bb64d9341deb9599, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  undo: 0
+  redo: 0
   resetCube: 0
+  placeCube: 0
 --- !u!1 &81215227
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,9 +310,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 152399250}
-  - component: {fileID: 152399253}
-  - component: {fileID: 152399252}
-  - component: {fileID: 152399254}
   - component: {fileID: 152399251}
   m_Layer: 0
   m_Name: PlaceButton
@@ -341,47 +341,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 152399249}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a5871c38ce18eb488e386172963ba62, type: 3}
+  m_Script: {fileID: 11500000, guid: f954c772dfaa9ec4bb64d9341deb9599, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  undo: 0
+  redo: 0
+  resetCube: 0
   placeCube: 0
---- !u!114 &152399252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 152399249}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa17d122634046b4a8e23048891fafc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &152399253
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 152399249}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 520bb47c46cf8624fafb307b7d1b862a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Camera: {fileID: 0}
---- !u!114 &152399254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 152399249}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1dec8e05fb7eaae409801b68bf38670c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &175124140
 GameObject:
   m_ObjectHideFlags: 0
@@ -1313,10 +1279,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1529744647}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b60fa415aa134194ba000fcfd1e17e3c, type: 3}
+  m_Script: {fileID: 11500000, guid: f954c772dfaa9ec4bb64d9341deb9599, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   undo: 0
+  redo: 0
+  resetCube: 0
+  placeCube: 0
 --- !u!1 &1593377301
 GameObject:
   m_ObjectHideFlags: 0

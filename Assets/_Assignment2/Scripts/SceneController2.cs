@@ -41,23 +41,24 @@ public class SceneController2 : MonoBehaviour
 
     public GameObject mainLine;
 
-    private GameObject resetButton;
-    private GameObject placeButton;
-    private GameObject undoButton;
-    private GameObject redoButton;
+    GameObject resetButton;
+    GameObject placeButton;
+    GameObject undoButton;
+    GameObject redoButton;
 
     bool reset;
     bool place;
     bool undo;
     bool redo;
-    bool undoTracker;
+
+    bool touchedLast;
 
     public Scrollbar scroll;
     float scrollVal;
 
     public Vector3 cubeVelocity = Vector3.zero;
 
-    Ray ray;
+    Ray shadowRay;
 
     // Start is called before the first frame update
     void Start()
@@ -72,9 +73,11 @@ public class SceneController2 : MonoBehaviour
      //   redoButton = GameObject.Find("RedoButton");
 
         currentCube = Instantiate(placedCube, new Vector3(0, 0, 0), camera.transform.rotation);
-        currentCubeShadow = Instantiate(cubeShadow);
+
         var cubeRenderer = currentCube.GetComponent<Renderer>();
         cubeRenderer.material.SetColor("_Color", Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f));
+
+        currentCubeShadow = Instantiate(cubeShadow);
         Instantiate(mainLine);
     }
 
@@ -85,11 +88,11 @@ public class SceneController2 : MonoBehaviour
         lineCount = lines.Count;
         shadowCount = cubeShadows.Count;
 
-        reset = resetButton.GetComponent<resetScene>().resetCube;
-        place = placeButton.GetComponent<newCube>().placeCube;
+        reset = resetButton.GetComponent<buttonController>().resetCube;
+        place = placeButton.GetComponent<buttonController>().placeCube;
 
-        undo = undoButton.GetComponent<UndoCube>().undo;
-       // redo = redoButton.GetComponent<RedoCube>().redo;
+        undo = undoButton.GetComponent<buttonController>().undo;
+        // redo = redoButton.GetComponent<buttonController>().redo;
 
         scrollVal = scroll.GetComponent<Scrollbar>().value;
 
@@ -116,8 +119,8 @@ public class SceneController2 : MonoBehaviour
         //moves cube attached to line
         currentCube.transform.position = Vector3.SmoothDamp(currentCube.transform.position, camera.transform.position + (1f + 3 * scrollVal) * camera.transform.forward, ref cubeVelocity, 0.8F);
         //finds where to add the shadow for the cube attached to the line
-        ray = new Ray(currentCube.transform.position, Vector3.down);
-        if (raycastManager.Raycast(ray, hits, TrackableType.PlaneWithinPolygon))
+        shadowRay = new Ray(currentCube.transform.position, Vector3.down);
+        if (raycastManager.Raycast(shadowRay, hits, TrackableType.PlaneWithinPolygon))
         {
             var hitPose = hits[0].pose;
             currentCubeShadow.transform.position = hitPose.position;
@@ -127,7 +130,7 @@ public class SceneController2 : MonoBehaviour
 
     private void placeCube()
     {
-        placeButton.GetComponent<newCube>().setPlaceFalse();
+        placeButton.GetComponent<buttonController>().setPlaceFalse();
         GameObject newPlacedCube = Instantiate(placedCube, currentCube.transform.position, currentCube.transform.rotation);
         var mainCubeRenderer = currentCube.GetComponent<Renderer>();
         var cubeRenderer = newPlacedCube.GetComponent<Renderer>();
@@ -136,12 +139,10 @@ public class SceneController2 : MonoBehaviour
         cubes.Add(newPlacedCube);
         backupCubes.Add(newPlacedCube);
 
-
         mainCubeRenderer.material.SetColor("_Color", Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f));
 
-
-        ray = new Ray(currentCube.transform.position, Vector3.down);
-        if (raycastManager.Raycast(ray, hits, TrackableType.PlaneWithinPolygon))
+        shadowRay = new Ray(currentCube.transform.position, Vector3.down);
+        if (raycastManager.Raycast(shadowRay, hits, TrackableType.PlaneWithinPolygon))
         {
             var hitPose = hits[0].pose;
             GameObject newCubeShadow = Instantiate(cubeShadow, hitPose.position, currentCube.transform.rotation);
@@ -160,8 +161,7 @@ public class SceneController2 : MonoBehaviour
 
     void resetCubes()
     {
-       // undoTracker = false;
-        resetButton.GetComponent<resetScene>().setResetFalse();
+        resetButton.GetComponent<buttonController>().setResetFalse();
 
         for (int i = 0; i < cubeCount; i++)
         {
@@ -191,8 +191,7 @@ public class SceneController2 : MonoBehaviour
 
     void undoCube()
     {
-       // undoTracker = true;
-        undoButton.GetComponent<UndoCube>().setUndoFalse();
+        undoButton.GetComponent<buttonController>().setUndoFalse();
 
         if (cubeCount >= 0)
         {
@@ -214,8 +213,7 @@ public class SceneController2 : MonoBehaviour
 
     void redoCube()
     {
-    //    undoTracker = false;
-        redoButton.GetComponent<RedoCube>().setRedoFalse();
+        redoButton.GetComponent<buttonController>().setRedoFalse();
 
         if (backupCubes.Count > cubeCount)
         {
@@ -225,10 +223,7 @@ public class SceneController2 : MonoBehaviour
            cubes.Add(readdedCube);
 
         }
-
-
     }
-
 
 }
 

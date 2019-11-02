@@ -549,7 +549,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cubes: []
   lines: []
-  placedCube: {fileID: 1934569588295450, guid: b34b6c8f1206a6844b983e23b9da0441, type: 3}
+  placedCube: {fileID: 5627856991970986706, guid: be347ad4f9014da41b9affc0ed948516,
+    type: 3}
   distanceVisualizer: {fileID: 267768563418377727, guid: 43edfbbc98d576846b17867c3c08963d,
     type: 3}
 --- !u!1 &964630937
@@ -803,10 +804,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1449436869}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dce4068efc084c040b1b6c65c374f63e, type: 3}
+  m_Script: {fileID: 11500000, guid: f954c772dfaa9ec4bb64d9341deb9599, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  undo: 0
+  redo: 0
   resetCube: 0
+  placeCube: 0
 --- !u!4 &1449436871
 Transform:
   m_ObjectHideFlags: 0
@@ -866,10 +870,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1555967794}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b60fa415aa134194ba000fcfd1e17e3c, type: 3}
+  m_Script: {fileID: 11500000, guid: f954c772dfaa9ec4bb64d9341deb9599, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   undo: 0
+  redo: 0
+  resetCube: 0
+  placeCube: 0
 --- !u!1 &1714280272
 GameObject:
   m_ObjectHideFlags: 0

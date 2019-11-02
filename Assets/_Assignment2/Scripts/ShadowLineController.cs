@@ -8,22 +8,15 @@ public class ShadowLineController : MonoBehaviour
 {
     LineRenderer lineRenderer;
 
-    private GameObject session;
+    GameObject session;
 
     List<GameObject> shadows;
-
-    GameObject resetButton;
-    bool reset;
 
     Vector3 p0;
     Vector3 p1;
     Vector3 newp0;
     Vector3 newp1;
 
-    bool textAdded = false;
-
-    private float counter = 0;
-    private float distance;
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +24,6 @@ public class ShadowLineController : MonoBehaviour
         session = GameObject.Find("AR Session Origin");
 
         Scene currentScene = SceneManager.GetActiveScene();
-
         shadows = session.GetComponent<SceneController2>().cubeShadows;
 
         lineRenderer = GetComponent<LineRenderer>();
