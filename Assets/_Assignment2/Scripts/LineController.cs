@@ -15,18 +15,17 @@ public class LineController : MonoBehaviour
     
     List<GameObject> cubes;
 
-
     Vector3 p0;
     Vector3 p1;
-
     Vector3 newp0;
     Vector3 newp1;
 
     Vector3 lineCenter;
-
-    bool textAdded = false;
+    Vector3 heading;
 
     float distance;
+
+    bool textAdded = false;
 
     void Start()
     {
@@ -43,17 +42,20 @@ public class LineController : MonoBehaviour
             cubes = session.GetComponent<SceneController2>().cubes;
         }
 
-        lineRenderer = GetComponent<LineRenderer>();
-
-        lineRenderer.startWidth = 0.01f;
-        lineRenderer.endWidth = 0.01f;
-
+        //start and end points
         p0 = cubes[cubes.Count - 2].transform.position;
         p1 = cubes[cubes.Count - 1].transform.position;
 
-        distance = Vector3.Distance(p0, p1);
+        //calculates distance and magnitude
+        heading = p1 - p0;
+        distance = heading.magnitude;
         lineCenter = (p0 + p1) / 2;
 
+        lineRenderer = GetComponent<LineRenderer>();
+
+        //begins line renderer
+        lineRenderer.startWidth = 0.01f;
+        lineRenderer.endWidth = 0.01f;
         lineRenderer.SetPosition(0, p0);
         lineRenderer.SetPosition(1, p0);
     }
@@ -61,15 +63,21 @@ public class LineController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (lineRenderer.GetPosition(1) == p0)
+        {
+            distanceTextPrefab.GetComponent<TextMesh>().text = distance.ToString("0.00");
+        }
+
+        //moves line renderer
         newp0 = lineRenderer.GetPosition(1);
-        newp1 = Vector3.Lerp(newp0, p1, 6.0f * Time.deltaTime);
+        newp1 = Vector3.Lerp(newp0, p1, 7.0f * Time.deltaTime);
         lineRenderer.SetPosition(1, newp1);
 
+        //line renderer complete
         if (lineRenderer.GetPosition(1) == p1 && !textAdded)
         {
-                distanceTextPrefab.GetComponent<TextMesh>().text = distance.ToString("0.00");
-                distanceText = Instantiate(distanceTextPrefab, lineCenter + new Vector3(0, 0.02f, 0), Quaternion.identity);
-                textAdded = true;
+            distanceText = Instantiate(distanceTextPrefab, lineCenter + new Vector3(0, 0.02f, 0), Quaternion.identity);
+            textAdded = true;
         }
     }
 }

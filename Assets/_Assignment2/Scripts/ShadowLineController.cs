@@ -26,14 +26,12 @@ public class ShadowLineController : MonoBehaviour
         Scene currentScene = SceneManager.GetActiveScene();
         shadows = session.GetComponent<SceneController2>().cubeShadows;
 
-        lineRenderer = GetComponent<LineRenderer>();
-
-        lineRenderer.startWidth = 0.015f;
-        lineRenderer.endWidth = 0.015f;
-
         p0 = shadows[shadows.Count - 2].transform.position;
         p1 = shadows[shadows.Count - 1].transform.position;
 
+        lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.startWidth = 0.015f;
+        lineRenderer.endWidth = 0.015f;
         lineRenderer.SetPosition(0, p0);
         lineRenderer.SetPosition(1, p0);
     }

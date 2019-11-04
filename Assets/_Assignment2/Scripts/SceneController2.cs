@@ -15,7 +15,7 @@ public class SceneController2 : MonoBehaviour
 
     //lists to keep track of generates cubes and lines
     public List<GameObject> cubes = new List<GameObject>();
-    public List<GameObject> backupCubes = new List<GameObject>();
+    public List<GameObject> backupCubes = new List<GameObject>(); //for redo
     public List<GameObject> cubeShadows = new List<GameObject>();
 
     public List<GameObject> lines = new List<GameObject>();
@@ -34,7 +34,6 @@ public class SceneController2 : MonoBehaviour
     //prefabs
     public GameObject placedCube;
     public GameObject cubeShadow;
-
 
     public GameObject DistanceVisualizer;
     public GameObject DistanceVisualizerShadow;
@@ -68,12 +67,12 @@ public class SceneController2 : MonoBehaviour
 
         resetButton = GameObject.Find("ResetButton");
         placeButton = GameObject.Find("PlaceButton");
-
         undoButton = GameObject.Find("UndoButton");
      //   redoButton = GameObject.Find("RedoButton");
 
         currentCube = Instantiate(placedCube, new Vector3(0, 0, 0), camera.transform.rotation);
 
+        //creates random color for the cube
         var cubeRenderer = currentCube.GetComponent<Renderer>();
         cubeRenderer.material.SetColor("_Color", Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f));
 
@@ -90,7 +89,6 @@ public class SceneController2 : MonoBehaviour
 
         reset = resetButton.GetComponent<buttonController>().resetCube;
         place = placeButton.GetComponent<buttonController>().placeCube;
-
         undo = undoButton.GetComponent<buttonController>().undo;
         // redo = redoButton.GetComponent<buttonController>().redo;
 
@@ -118,19 +116,27 @@ public class SceneController2 : MonoBehaviour
 
         //moves cube attached to line
         currentCube.transform.position = Vector3.SmoothDamp(currentCube.transform.position, camera.transform.position + (1f + 3 * scrollVal) * camera.transform.forward, ref cubeVelocity, 0.8F);
+
         //finds where to add the shadow for the cube attached to the line
         shadowRay = new Ray(currentCube.transform.position, Vector3.down);
         if (raycastManager.Raycast(shadowRay, hits, TrackableType.PlaneWithinPolygon))
         {
+            currentCubeShadow.active = true;
             var hitPose = hits[0].pose;
             currentCubeShadow.transform.position = hitPose.position;
             currentCubeShadow.transform.rotation = hitPose.rotation;
+        }
+        else
+        {
+            currentCubeShadow.active = false;
         }
     }
 
     private void placeCube()
     {
         placeButton.GetComponent<buttonController>().setPlaceFalse();
+
+        //sets color of new cube to the cube attached to the line
         GameObject newPlacedCube = Instantiate(placedCube, currentCube.transform.position, currentCube.transform.rotation);
         var mainCubeRenderer = currentCube.GetComponent<Renderer>();
         var cubeRenderer = newPlacedCube.GetComponent<Renderer>();
@@ -141,6 +147,7 @@ public class SceneController2 : MonoBehaviour
 
         mainCubeRenderer.material.SetColor("_Color", Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f));
 
+        //adds shadow to the new cube
         shadowRay = new Ray(currentCube.transform.position, Vector3.down);
         if (raycastManager.Raycast(shadowRay, hits, TrackableType.PlaneWithinPolygon))
         {
@@ -171,8 +178,6 @@ public class SceneController2 : MonoBehaviour
             {
                 Destroy(lines[i]);
                 Destroy(lines[i].GetComponent<LineController>().distanceText);
-
-                Destroy(shadowLines[i]);
             }
         }
 
@@ -180,6 +185,12 @@ public class SceneController2 : MonoBehaviour
         {
             Destroy(cubeShadows[i]);
         }
+
+        for (int i = 0; i < shadowLines.Count; i++)
+        {
+            Destroy(shadowLines[i]);
+        }
+        
         cubes.Clear();
         cubeShadows.Clear();
 

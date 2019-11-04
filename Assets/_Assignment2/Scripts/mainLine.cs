@@ -6,10 +6,12 @@ public class mainLine : MonoBehaviour
 
     GameObject camera;
     GameObject origin;
+
     GameObject currentCube;
+
     Vector3 cubeVelocity;
 
-    private Vector3[] points = new Vector3[50];
+    private Vector3[] bezier = new Vector3[50];
 
     Vector3 p0;
     Vector3 p1; //control point
@@ -30,24 +32,27 @@ public class mainLine : MonoBehaviour
 
         lineRenderer.startWidth = 0.006F;
         lineRenderer.endWidth = 0.006F;
-        lineRenderer.positionCount = 50;
+        lineRenderer.positionCount = 50; //50 points
     }
 
-    // Update is called once per frame
     void Update()
     {
+        //point from user
         p0 = camera.transform.position - new Vector3(0, 1, 0);
+        //point to cube
         p2 = currentCube.transform.position;
 
+        //control point in center of line, scaled by velocity
         cubeVelocity = origin.GetComponent<SceneController2>().cubeVelocity;
         p1 = ((p0 + p2) / 2) + (cubeVelocity * 0.4f);
 
+        //calculates bezier points
         for (int i = 1; i < 51; i++)
         {
             t = i / 50.0f;
-            points[i - 1] = ((1 - t) * (1 - t)) * p0 + ((2 * t) - (2 * t * t)) * p1 + (t * t) * p2; //bezier equaition
+            bezier[i - 1] = ((1 - t) * (1 - t)) * p0 + ((2 * t) - (2 * t * t)) * p1 + (t * t) * p2;
         }
-        lineRenderer.SetPositions(points);
+        lineRenderer.SetPositions(bezier);
     }
 
 }

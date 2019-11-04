@@ -49,6 +49,7 @@ public class SceneController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //updates count
         cubeCount = cubes.Count;
         lineCount = lines.Count;
 
@@ -91,21 +92,20 @@ public class SceneController : MonoBehaviour
             }
         }
 
-        //checks touch input; adds new cube if touched
-        //runs every 6th time Update is called, to not "spam" the screen with cubes
             //This getTouchPosition and raycast code was modified from the ARFoundations code
             if (!getTouchPosition(out Vector2 pos))
             {
                 return;
             }
-
+            
+            //checks touch input; adds new cube if touched
             if (raycastManager.Raycast(pos, hits, TrackableType.PlaneWithinPolygon))
             {
                 if(touchedLast == true)
                 {
                     frameCount++;
                     
-                    if(frameCount % 5 == 0)
+                    if(frameCount % 4 == 0)
                     {
                         touchedLast = false;
                     }
@@ -116,20 +116,20 @@ public class SceneController : MonoBehaviour
                     var hitPose = hits[0].pose;
                     currentCube = Instantiate(placedCube, hitPose.position, hitPose.rotation);
 
+                    //randomizes color of cube
                     var cubeRenderer = currentCube.GetComponent<Renderer>();
                     cubeRenderer.material.SetColor("_Color", Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f));
 
                     cubes.Add(currentCube);
-
                     cubeCount = cubes.Count;
-                    lineCount = lines.Count;
+
 
                     if (cubeCount >= 2)
                     {
                         currentLine = Instantiate(distanceVisualizer);
                         lines.Add(currentLine);
+                        lineCount = lines.Count;
                     }
-
                 touchedLast = true;
                 }
                 

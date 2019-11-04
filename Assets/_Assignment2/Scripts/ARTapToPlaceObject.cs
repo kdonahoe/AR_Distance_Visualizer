@@ -9,18 +9,20 @@ public class ARTapToPlaceObject : MonoBehaviour
 {
     static List<ARRaycastHit> hits = new List<ARRaycastHit>();
     ARRaycastManager raycastManager;
+
     public GameObject model;
-    GameObject bee;
+    GameObject forklift;
+
     int frameCount = 0;
+
     Ray ray;
-    // Start is called before the first frame update
+
     void Start()
     {
         raycastManager = GetComponent<ARRaycastManager>();
-        bee = Instantiate(model);
+        forklift = Instantiate(model);
     }
 
-    // Update is called once per frame
     void Update()
     {        
         if (!getTouchPosition(out Vector2 pos))
@@ -28,15 +30,18 @@ public class ARTapToPlaceObject : MonoBehaviour
             return;
         }
 
+        //enters if there is a touch on the screen
         if (raycastManager.Raycast(pos, hits, TrackableType.PlaneWithinPolygon))
         {
             var hitPose = hits[0].pose;
 
-            bee.transform.LookAt(hitPose.position, Vector3.up);
-            bee.transform.position = Vector3.Lerp(bee.transform.position, hitPose.position, 1f*Time.deltaTime);
+            //forklift faces towards finger point and moves towards it
+            forklift.transform.LookAt(hitPose.position, Vector3.up);
+            forklift.transform.position = Vector3.Lerp(forklift.transform.position, hitPose.position, 1f*Time.deltaTime);
         }
     }
 
+    //taken from AR foundations sample
     bool getTouchPosition(out Vector2 pos)
     {
         if (Input.GetMouseButton(0))

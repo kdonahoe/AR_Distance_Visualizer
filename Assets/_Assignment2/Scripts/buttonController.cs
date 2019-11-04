@@ -1,11 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class buttonController : MonoBehaviour
 {
+    //booleans that are set by button presses
     public bool undo;
-    public bool redo;
+    public bool redo; //redo isn't in use
 
     public bool resetCube;
     public bool placeCube;
