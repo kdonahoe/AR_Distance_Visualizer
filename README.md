@@ -2,6 +2,16 @@
 
 # Assignment 2
 
-Read: [Assignment Instructions](https://docs.google.com/document/d/12h5IozC-pnbHiBRcJ67rW6VFGES-ymw-T1T37VQluOE/edit?usp=sharing "Detailed Assignment Instructions")
+<hr>
 
-**Please follow the submission instructions and submit all your screen recordings and writeup on Canvas before the submission deadline**
+### Student Name:
+
+Katherine Donahoe
+
+
+### Student NetID:
+
+kd459
+
+<hr>
+
