@@ -15,7 +15,6 @@ public class SceneController2 : MonoBehaviour
 
     //lists to keep track of generates cubes and lines
     public List<GameObject> cubes = new List<GameObject>();
-    public List<GameObject> backupCubes = new List<GameObject>(); //for redo
     public List<GameObject> cubeShadows = new List<GameObject>();
 
     public List<GameObject> lines = new List<GameObject>();
@@ -43,12 +42,10 @@ public class SceneController2 : MonoBehaviour
     GameObject resetButton;
     GameObject placeButton;
     GameObject undoButton;
-    GameObject redoButton;
 
     bool reset;
     bool place;
     bool undo;
-    bool redo;
 
     bool touchedLast;
 
@@ -68,7 +65,6 @@ public class SceneController2 : MonoBehaviour
         resetButton = GameObject.Find("ResetButton");
         placeButton = GameObject.Find("PlaceButton");
         undoButton = GameObject.Find("UndoButton");
-     //   redoButton = GameObject.Find("RedoButton");
 
         currentCube = Instantiate(placedCube, new Vector3(0, 0, 0), camera.transform.rotation);
 
@@ -90,7 +86,6 @@ public class SceneController2 : MonoBehaviour
         reset = resetButton.GetComponent<buttonController>().resetCube;
         place = placeButton.GetComponent<buttonController>().placeCube;
         undo = undoButton.GetComponent<buttonController>().undo;
-        // redo = redoButton.GetComponent<buttonController>().redo;
 
         scrollVal = scroll.GetComponent<Scrollbar>().value;
 
@@ -107,11 +102,6 @@ public class SceneController2 : MonoBehaviour
         if (undo)
         {
             undoCube();
-        }
-
-        if (redo)
-        {
-            redoCube();
         }
 
         //moves cube attached to line
@@ -143,7 +133,6 @@ public class SceneController2 : MonoBehaviour
         cubeRenderer.material.color =  mainCubeRenderer.material.GetColor("_Color");
 
         cubes.Add(newPlacedCube);
-        backupCubes.Add(newPlacedCube);
 
         mainCubeRenderer.material.SetColor("_Color", Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f));
 
@@ -194,8 +183,6 @@ public class SceneController2 : MonoBehaviour
         cubes.Clear();
         cubeShadows.Clear();
 
-        backupCubes.Clear();
-
         lines.Clear();
         shadowLines.Clear();
     }
@@ -222,19 +209,6 @@ public class SceneController2 : MonoBehaviour
 
     }
 
-    void redoCube()
-    {
-        redoButton.GetComponent<buttonController>().setRedoFalse();
-
-        if (backupCubes.Count > cubeCount)
-        {
-           GameObject lastCube = backupCubes[cubeCount];
-           GameObject readdedCube = Instantiate(placedCube, lastCube.transform.position, lastCube.transform.rotation);
-
-           cubes.Add(readdedCube);
-
-        }
-    }
 
 }
 
