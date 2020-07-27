@@ -7,7 +7,7 @@
 - Allows a user to point their phone camera at the environment, and place AR points in the real world. The app measures the distance between the two points, estimating the distance (in meters) of the real world
 - Makes use of Bezier curve
 #### PART 2
-- Uses object detection to detect text book, and allows a user to move a small vehicle around the book.
+- Uses object detection to detect text book, and allows a user to move a small vehicle around the book using their finger on the rouch screen
 - Created in Unity, using C#
 - Deployed to Google Pixel
 
